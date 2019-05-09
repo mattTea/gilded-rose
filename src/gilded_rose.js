@@ -13,25 +13,29 @@ items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
 items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6));
 
-// What is this method originally doing?
-// - reduceDaysLeftToSell()
 function reduceDaysToSell(item) {
   item.sell_in -= 1
   return item
 }
 
-// - updateQuality()
 function updateQuality(item, changeAmount) {
   item.quality += changeAmount
+  if (item.quality > 50) item.quality = 50
+  if (item.quality < 0) item.quality = 0
   return item
 }
 
-// - isLegendaryItem()
-// function isLegendaryItem(item) {
-//   if (item.name === "Sulfuras, Hand of Ragnaros") return true
-// }
+function isLegendaryItem(item) {
+  var legendaryItems = [
+    "Sulfuras, Hand of Ragnaros"
+  ]
+  if (legendaryItems.includes(item.name)) {
+    return true
+  } else {
+    return false
+  }
+}
 
-// - isStandardItem()
 function isStandardItem(item) {
   var nonStandardItems = [
     "Aged Brie",
@@ -45,56 +49,60 @@ function isStandardItem(item) {
   }
 }
 
-// - checkQualityAboveZero()
-// - checkQualityBelowFifty()
-// function isInStandardQualityRange(item) {
-//   if (item.quality > 0 && item.quality < 50) return true
-// }
+function updateBackstagePass(item) {
+  if (item.sell_in < 11 && item.quality < 50) {
+    updateQuality(item, 1)
+  }
+  if (item.sell_in < 6 && item.quality < 50) {
+    updateQuality(item, 1)
+  }
+  return item
+}
 
-// - checkSellInDaysForBackstagePasses()
+function updateStandardItem(item) {
+  if (item.sell_in > 0) {
+    updateQuality(item, -1)
+  } else {
+    updateQuality(item, -2)
+  }
+  reduceDaysToSell(item)
+  return item
+}
+
+function updateBrie(item) {
+  if (item.sell_in <= 0) {
+    updateQuality(item, 2)
+  } else {
+    updateQuality(item, 1)
+  }
+  reduceDaysToSell(item)
+  return item
+}
+
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
-    // if (!isLegendaryItem(items[i])) {
-    //   reduceDaysToSell(items[i])
+    // if (isStandardItem(items[i]) && items[i].quality > 0) {
+    //   updateQuality(items[i], -1)
+    // } else {
+    //   if (items[i].quality < 50) {
+    //     updateQuality(items[i], 1) // <- updating Brie here as well as below
+    //     if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
+    //       updateBackstagePass(items[i])
+    //     }
+    //   }
     // }
-    if (isStandardItem(items[i]) && items[i].quality > 0) {
-      updateQuality(items[i], -1)
-    } else {
-      if (items[i].quality < 50) {
-        updateQuality(items[i], 1)
-        if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              updateQuality(items[i], 1)
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              updateQuality(items[i], 1)
-            }
-          }
-        }
-      }
-    }
-    if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
+
+    if (isLegendaryItem(items[i])) {
       reduceDaysToSell(items[i])
     }
-    if (items[i].sell_in < 0) {
-      if (items[i].name != 'Aged Brie') {
-        if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].quality > 0) {
-            if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-              updateQuality(items[i], -1)
-            }
-          }
-        } else {
-          items[i].quality = 0
-        }
-      } else {
-        if (items[i].quality < 50) {
-          updateQuality(items[i], 1)
-        }
-      }
+    if (isStandardItem(items[i])) {
+      updateStandardItem(items[i])
+    }
+    if (items[i].name === "Backstage passes to a TAFKAL80ETC concert" && items[i].sell_in <= 0) {
+      items[i].quality = 0
+    }
+    if (items[i].name === "Aged Brie") {
+      updateBrie(items[i])
     }
   }
 }
