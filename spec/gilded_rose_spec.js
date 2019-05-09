@@ -1,4 +1,4 @@
-describe("Gilded Rose", function() {
+xdescribe("Gilded Rose", function() {
 
   it("should do something", function() {
     update_quality();
