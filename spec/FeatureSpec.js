@@ -58,4 +58,12 @@ describe("Feature", function() {
     update_quality()
     expect(item.quality).toEqual(50)
   })
+
+  it("does not change quality for Sulfuras", function() {
+    var item = new Item("Sulfuras, Hand of Ragnaros", 0, 80)
+    items.push(item)
+    update_quality()
+    update_quality()
+    expect(item.quality).toEqual(80)
+  })
 })
