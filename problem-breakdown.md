@@ -7,10 +7,11 @@ Problem breakdown
     - All items have a `sell_in` value which denotes the number of days in which we have to sell the item
     - `sell_in` can go below zero
     - Once below (actually, once it _reaches_) 0 `quality` degrades twice as fast
-    - (Leant that negative degradation (Aged Brie) also doubles when sell_in <= 0) 
+    - (Learnt that negative degradation (Aged Brie) also doubles when sell_in <= 0) 
 
     - **Ideas**
       - Rename this to `daysLeftToSell`?
+      - (Rules state don't change the `Item` class, so name will have to remain)
 
 
 2. `quality`
@@ -22,6 +23,7 @@ Problem breakdown
 
     - **Ideas**
       - Rename this to `value`?
+      - (Rules state don't change the `Item` class, so name will have to remain)
 
 
 3. `update_quality()`
@@ -37,7 +39,7 @@ Problem breakdown
 
     - **Ideas**
       - Split method to individual responsibilities?
-      - Rename each to `reducesDaysLeftToSell` and `reduceValue`?
+      - Rename each to `reducesDayLeftToSell` and `reduceValue`?
 
 ------
 
@@ -62,13 +64,14 @@ New item "Conjured" requires an update...
 Refactor so that adding the new `Conjured` items feature is easy to do
 
 1. Write tests first to ensure current functionality does not break when refactoring
-    - Start with feature test
+    - Start with feature tests
     - Test behaviour not state
     - (This might highlight areas to refactor by doing this)
+    - NOTE: As current `update_quality` method does not return anything, initial tests will test for state more than I would like. Refactor tests along with code to change this
 
 2. Descriptive naming
 
-3. Don't allocate memory in an instance variable that can be a constant
+3. Don't allocate memory in an instance variable for something that can be a constant
 
 4. Look for repetition
     - If method names contain some similar words, look to extract common items
@@ -124,3 +127,20 @@ Refactor so that adding the new `Conjured` items feature is easy to do
     - Quality increases by 2 when sell_in === 5 < 10
     - Quality increases by 3 when sell_in === 0 < 5
     - Quality === 0 when sell_in <= 0
+
+------
+
+## Breakdown of first refactor
+
+What is the `update_quality()` method currently doing?
+
+- reduceDaysLeftToSell()
+- updateQuality()
+
+- isStandardItem()
+- checkQualityAboveZero()
+- checkQualityBelowFifty()
+- checkSellInDaysForBackstagePasses()
+
+
+Above are options for separate methods
