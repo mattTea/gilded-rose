@@ -6,7 +6,7 @@ Problem breakdown
 1. `sell_in`
     - All items have a `sell_in` value which denotes the number of days in which we have to sell the item
     - `sell_in` can go below zero
-    - Once below 0 `quality` degrades twice as fast
+    - Once below (actually, once it _reaches_) 0 `quality` degrades twice as fast
 
     - **Ideas**
       - Rename this to `daysLeftToSell`?
@@ -106,8 +106,10 @@ Refactor so that adding the new `Conjured` items feature is easy to do
 
 1. Quality of a specific item reduces as expected
 
-2. Quality of another specific item reduces as expected
+2. Quality of multiple specific item reduces as expected
 
-3. Quality of first _unusual_ item changes as expected
+3. Quality of a standard item degrades twice as fast when sell_in is below 0
 
-4. Quality of next (and remaining) _unusual_ items change as expected
+4. Quality of first _unusual_ item changes as expected
+
+5. Quality of next (and remaining) _unusual_ items change as expected
