@@ -66,4 +66,53 @@ describe("Feature", function() {
     update_quality()
     expect(item.quality).toEqual(80)
   })
+
+  it("increases quality of 'Backstage passes' normally when sell_in >= 10", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(21)
+  })
+
+  it("increases quality of 'Backstage passes' by 2 when sell_in is 10 (6-10)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(22)
+  })
+
+  it("increases quality of 'Backstage passes' by 2 when sell_in is 6 (6-10)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(22)
+  })
+
+  it("increases quality of 'Backstage passes' by 3 when sell_in is 5 (1-5)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(23)
+  })
+
+  it("increases quality of 'Backstage passes' by 3 when sell_in is 1 (1-5)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(23)
+  })
+
+  it("sets quality to 0 for 'Backstage passes' when sell_in 0 (<=0)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(0)
+  })
+
+  it("sets quality to 0 for 'Backstage passes' when sell_in -1 (<=0)", function() {
+    var item = new Item("Backstage passes to a TAFKAL80ETC concert", -1, 20)
+    items.push(item)
+    update_quality()
+    expect(item.quality).toEqual(0)
+  })
 })

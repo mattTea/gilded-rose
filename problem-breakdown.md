@@ -119,4 +119,8 @@ Refactor so that adding the new `Conjured` items feature is easy to do
 
 7. Sulfuras quality doesn't change
 
-x. Quality of next (and remaining) _unusual_ items change as expected
+8. Tests for quality change of "Backstage passes"
+    - Quality increases as normal when sell_in > 10
+    - Quality increases by 2 when sell_in === 5 < 10
+    - Quality increases by 3 when sell_in === 0 < 5
+    - Quality === 0 when sell_in <= 0
