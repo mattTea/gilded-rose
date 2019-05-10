@@ -41,7 +41,7 @@ function isLegendaryItem(item) {
 }
 
 function isStandardItem(item) {
-  return NonStandardItems.includes(item.name) ? false : true
+  return !NonStandardItems.includes(item.name) ? true : false
 }
 
 function isBackstagePass(item) {
