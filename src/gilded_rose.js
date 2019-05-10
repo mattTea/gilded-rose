@@ -37,27 +37,15 @@ function updateQuality(item, changeAmount) {
 }
 
 function isLegendaryItem(item) {
-  if (LegendaryItems.includes(item.name)) {
-    return true
-  } else {
-    return false
-  }
+  return LegendaryItems.includes(item.name) ? true : false
 }
 
 function isStandardItem(item) {
-  if (NonStandardItems.includes(item.name)) {
-    return false
-  } else {
-    return true
-  }
+  return NonStandardItems.includes(item.name) ? false : true
 }
 
 function isBackstagePass(item) {
-  if (BackstagePasses.includes(item.name)) {
-    return true
-  } else {
-    return false
-  }
+  return BackstagePasses.includes(item.name) ? true : false
 }
 
 function updateBackstagePass(item) {
@@ -74,38 +62,22 @@ function updateBackstagePass(item) {
 }
 
 function updateStandardItem(item) {
-  if (item.sell_in > 0) {
-    updateQuality(item, -1)
-  } else {
-    updateQuality(item, -2)
-  }
+  item.sell_in > 0 ? updateQuality(item, -1) : updateQuality(item, -2)
   reduceDaysToSell(item)
   return item
 }
 
 function updateBrie(item) {
-  if (item.sell_in <= 0) {
-    updateQuality(item, 2)
-  } else {
-    updateQuality(item, 1)
-  }
+  item.sell_in <= 0 ? updateQuality(item, 2) : updateQuality(item, 1)
   reduceDaysToSell(item)
   return item
 }
 
-function update_quality() {
+function updateStock() {
   for (var i = 0; i < items.length; i++) {
-    if (isLegendaryItem(items[i])) {
-      reduceDaysToSell(items[i])
-    }
-    if (isStandardItem(items[i])) {
-      updateStandardItem(items[i])
-    }
-    if (isBackstagePass(items[i])) {
-      updateBackstagePass(items[i])
-    }
-    if (items[i].name === "Aged Brie") {
-      updateBrie(items[i])
-    }
+    if (isLegendaryItem(items[i])) reduceDaysToSell(items[i])
+    if (isStandardItem(items[i])) updateStandardItem(items[i])
+    if (isBackstagePass(items[i])) updateBackstagePass(items[i])
+    if (items[i].name === "Aged Brie") updateBrie(items[i])
   }
 }

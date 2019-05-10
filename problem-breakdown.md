@@ -142,5 +142,6 @@ What is the `update_quality()` method currently doing?
 - checkQualityBelowFifty()
 - checkSellInDaysForBackstagePasses()
 
-
 Above are options for separate methods
+
+(Chosen extractions are now in the code)
