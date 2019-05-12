@@ -58,6 +58,7 @@ function updateBackstagePass(item) {
   } else {
     item.quality = 0
   }
+  reduceDaysToSell(item)
   return item
 }
 

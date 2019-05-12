@@ -144,4 +144,4 @@ What is the `update_quality()` method currently doing?
 
 Above are options for separate methods
 
-(Chosen extractions are now in the code)
+(Chosen extractions are now in the code, and will have iterated on the above)
