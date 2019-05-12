@@ -80,4 +80,5 @@ function updateStock() {
     if (isBackstagePass(items[i])) updateBackstagePass(items[i])
     if (items[i].name === "Aged Brie") updateBrie(items[i])
   }
+  return items
 }

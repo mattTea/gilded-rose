@@ -34,7 +34,7 @@ The current functionality as detailed in the original kata, and the additional r
 - JavaScript
 - Jasmine testing framework
 <!-- - ESLint -->
-<!-- - Test coverage using Istanbul nyc (to be configured fully) -->
+- Test coverage using Istanbul
 
 ------
 
@@ -53,3 +53,13 @@ After forking and cloning repo,
 1. Copy path of `SpecRunner.html` into your browser
 
 2. Tests will run and output in the browser
+
+
+### To run test coverage
+
+1. Install Istanbul if not already installed, by running `npm install -g istanbul`
+
+2. Navigate to root of project and run `istanbul cover jasmine spec/*Spec.js`
+
+3. Test coverage stats are displayed in terminal
+    - N.B. Use this only for coverage stats, tests pass/fail should be seen in the browser as per above instruction
